@@ -4,8 +4,8 @@ import java.io.EOFException;
 import java.io.IOException;
 
 /** A ChunkReader reads bytes from an input stream in chunks of up to some fixed number of bytes. */
-public interface ChunkReader {
-
+public interface ChunkReader
+{
 	/**
 	 * Returns the maximum number of bytes in a chunk.
 	 */

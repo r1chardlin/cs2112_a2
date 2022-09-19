@@ -9,23 +9,22 @@ public abstract class AbstractCipher implements Cipher
 {
     private String plaintext;
     private String ciphertext;
+    private String alphabet;
 
-    public void encrypt(InputStream in, OutputStream out) throws IOException
+    AbstractCipher()
     {
-
+        this.alphabet = "abcdefghijklmnopqrstuvwxyz";
     }
-    public void decrypt(InputStream in, OutputStream out) throws IOException
+
+    public String getAlphabet()
     {
-
+        return this.alphabet;
     }
-    public String encrypt(String plaintext)
-    {
+    public abstract void encrypt(InputStream in, OutputStream out) throws IOException;
+    public abstract void decrypt(InputStream in, OutputStream out) throws IOException;
+    public abstract String encrypt(String plaintext);
 
-    }
-    public String decrypt(String ciphertext)
-    {
-
-    }
+    public abstract String decrypt(String ciphertext);
 
     public void save(OutputStream out) throws IOException
     {

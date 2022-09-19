@@ -25,7 +25,8 @@ public class CipherFactory {
      */
     public Cipher getCaesarCipher(int shift)
     {
-        return null; // TODO implement
+        // TODO implement
+        return new Caesar(shift);
     }
 
     /**
@@ -35,18 +36,22 @@ public class CipherFactory {
      */
     public Cipher getVigenereCipher(String key)
     {
-        return null; // TODO implement
+        // TODO implement
+        return new Vigenere(key);
     }
 
     /** Returns a new monoalphabetic substitution cipher with a randomly generated mapping. */
     public Cipher getRandomSubstitutionCipher()
     {
-        return null; // TODO implement
+        // TODO implement
+        return new RandomSubstitution();
     }
 
     /** Returns a new RSA cipher with a randomly generated keys. */
-    public Cipher getRSACipher() {
-        return null; // TODO implement
+    public Cipher getRSACipher()
+    {
+        // TODO implement
+        return new RSA();
     }
 
     /**
@@ -56,7 +61,9 @@ public class CipherFactory {
      * @param n modulus
      * @param d decryption key
      */
-    public Cipher getRSACipher(BigInteger e, BigInteger n, BigInteger d) {
-        return null; // TODO implement
+    public Cipher getRSACipher(BigInteger e, BigInteger n, BigInteger d)
+    {
+        // TODO implement
+        return new RSA(e, d, n);
     }
 }
