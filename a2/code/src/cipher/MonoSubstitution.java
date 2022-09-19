@@ -11,6 +11,7 @@ public class MonoSubstitution extends AbstractCipher
     private String alphabet;
     private String encryptedAlphabet;
 
+    // Caesar
     MonoSubstitution(int shift)
     {
         this.alphabet = super.getAlphabet();
@@ -24,6 +25,8 @@ public class MonoSubstitution extends AbstractCipher
             encryptedAlphabet += this.alphabet.charAt(i)
         }
     }
+
+    // Random Substitution
     MonoSubstitution()
     {
         this.alphabet = super.getAlphabet();
@@ -38,6 +41,7 @@ public class MonoSubstitution extends AbstractCipher
         }
     }
 
+    // Uses given encryptedAlphabet
     MonoSubstitution(String encryptedAlphabet)
     {
         this.alphabet = super.getAlphabet();
