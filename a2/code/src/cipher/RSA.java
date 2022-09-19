@@ -12,8 +12,13 @@ public class RSA extends AbstractCipher implements ChunkReader
     private BigInteger n;
     private BigInteger d;
 
+    private int byteIndex;
+    private int dataLen;
+
     RSA()
     {
+        this.byteIndex = 0;
+        this.dataLen = null;
         // TODO generate random keys
     }
 
@@ -22,6 +27,8 @@ public class RSA extends AbstractCipher implements ChunkReader
         this.e = e;
         this.n = n;
         this.d = d;
+        this.byteIndex = 0;
+        this.dataLen = null;
     }
 
     /**
@@ -38,7 +45,11 @@ public class RSA extends AbstractCipher implements ChunkReader
      */
     public boolean hasNext()
     {
-
+        if (byteIndex < dataLen)
+        {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -58,25 +69,28 @@ public class RSA extends AbstractCipher implements ChunkReader
      */
     public int nextChunk(byte[] data) throws EOFException, IOException
     {
-        return Arrays.copyOfRange(data, 0, 126);
+        if (byteIndex + this.chunkSize() - 1 < data.length)
+        {
+            return this.chunkSize();
+        }
+        return data.length - index;
     }
 
-    
+
     public void encrypt(InputStream in, OutputStream out) throws IOException
     {
-
+        byte[] plaintextArr = new byte[in.available()];
+        this.dataLen = plaintextArr.length
+        in.read(plaintextArr);
+        while (this.hasNext())
+        {
+            byte[] chunk = Arrays.copyOfRange(data, byteIndex, byteIndex + this.chunkSize());
+            BigInteger chunkInt = new BigInteger(chunk);
+            // TODO: Use RSA to encrypt chunkInt
+            byteIndex += this.chunkSize();
+        }
     }
     public void decrypt(InputStream in, OutputStream out) throws IOException
-    {
-
-    }
-
-    public byte[] encrypt(String plaintext)
-    {
-        byte[] plainBytes = plaintext.getBytes();
-    }
-
-    public byte[] decrypt(String ciphertext)
     {
 
     }
