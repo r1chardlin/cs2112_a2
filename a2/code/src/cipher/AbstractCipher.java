@@ -46,7 +46,7 @@ public abstract class AbstractCipher implements Cipher
         byte[] plaintextArr = new byte[in.available()];
         in.read(plaintextArr);
         String plaintext = new String(plaintextArr);
-        editPlaintext(plaintext)
+        editPlaintext(plaintext);
         String ciphertext = this.encrypt(plaintext);
         editCiphertext(ciphertext);
         byte[] outBytes = ciphertext.getBytes();

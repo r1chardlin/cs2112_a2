@@ -15,7 +15,7 @@ public class CipherFactory {
      */
     public Cipher getMonoCipher(String encrAlph)
     {
-        return null; // TODO implement
+        return new MonoSubstitution(encrAlph); // TODO implement
     }
 
     /**
@@ -26,7 +26,7 @@ public class CipherFactory {
     public Cipher getCaesarCipher(int shift)
     {
         // TODO implement
-        return new Caesar(shift);
+        return new MonoSubstitution(shift);
     }
 
     /**
@@ -44,7 +44,7 @@ public class CipherFactory {
     public Cipher getRandomSubstitutionCipher()
     {
         // TODO implement
-        return new RandomSubstitution();
+        return new MonoSubstitution();
     }
 
     /** Returns a new RSA cipher with a randomly generated keys. */
@@ -64,6 +64,6 @@ public class CipherFactory {
     public Cipher getRSACipher(BigInteger e, BigInteger n, BigInteger d)
     {
         // TODO implement
-        return new RSA(e, d, n);
+        return new RSA(e, n, d);
     }
 }

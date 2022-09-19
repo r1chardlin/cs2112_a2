@@ -4,10 +4,9 @@
     <list default="true" id="36404378-3bd5-45f2-8698-86b3727e6b03" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/src/cipher/AbstractCipher.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/cipher/AbstractCipher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/src/cipher/Caesar.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/cipher/Caesar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/src/cipher/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/cipher/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/src/cipher/CipherFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/cipher/CipherFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/src/cipher/MonoSubstitution.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/cipher/MonoSubstitution.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/src/cipher/RSA.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/cipher/RSA.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/src/cipher/RandomSubstitution.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/cipher/MonoSubstitution.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/src/cipher/Vigenere.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/cipher/Vigenere.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -27,28 +26,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/rhlin/gitStuffs/cs2112_a2/a2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/rhlin/gitStuffs/cs2112_a2/a2&quot;
   }
-}]]></component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="a2" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="a2" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-  </component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

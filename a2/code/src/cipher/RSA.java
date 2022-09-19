@@ -61,6 +61,7 @@ public class RSA extends AbstractCipher implements ChunkReader
         return Arrays.copyOfRange(data, 0, 126);
     }
 
+    
     public void encrypt(InputStream in, OutputStream out) throws IOException
     {
 
@@ -70,16 +71,20 @@ public class RSA extends AbstractCipher implements ChunkReader
 
     }
 
-    public String encrypt(String plaintext)
+    public byte[] encrypt(String plaintext)
     {
         byte[] plainBytes = plaintext.getBytes();
-
     }
 
-    public String decrypt(String ciphertext)
+    public byte[] decrypt(String ciphertext)
     {
 
     }
 
-
+    public void save(OutputStream out)
+    {
+        String outText = "RSA\n" + this.e + "\n" + this.n + "\n" + this.d + "\n";
+        byte[] outBytes = outText.getBytes();
+        out.write(outBytes);
+    }
 }

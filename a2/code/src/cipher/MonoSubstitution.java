@@ -43,6 +43,7 @@ public class MonoSubstitution extends AbstractCipher
         this.alphabet = super.getAlphabet();
         this.encryptedAlphabet = encryptedAlphabet;
     }
+
     public String encrypt(String plaintext)
     {
         String ciphertext = "";
@@ -81,6 +82,8 @@ public class MonoSubstitution extends AbstractCipher
 
     public void save(OutputStream out)
     {
-        outText
+        String outText = "MONO\n" + this.encryptedAlphabet + "\n";
+        byte[] outBytes = outText.getBytes();
+        out.write(outBytes);
     }
 }
