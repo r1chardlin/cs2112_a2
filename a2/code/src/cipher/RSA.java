@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigInteger;
+import java.util.Arrays;
 
 public class RSA extends AbstractCipher implements ChunkReader
 {
     private BigInteger e;
     private BigInteger n;
-    private BigInteger d; 
+    private BigInteger d;
+
     RSA()
     {
         // TODO generate random keys
@@ -56,7 +58,7 @@ public class RSA extends AbstractCipher implements ChunkReader
      */
     public int nextChunk(byte[] data) throws EOFException, IOException
     {
-
+        return Arrays.copyOfRange(data, 0, 126);
     }
 
     public void encrypt(InputStream in, OutputStream out) throws IOException
@@ -70,6 +72,7 @@ public class RSA extends AbstractCipher implements ChunkReader
 
     public String encrypt(String plaintext)
     {
+        byte[] plainBytes = plaintext.getBytes();
 
     }
 

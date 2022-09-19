@@ -6,16 +6,29 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RandomSubstitution extends AbstractCipher
+public class MonoSubstitution extends AbstractCipher
 {
     private String alphabet;
     private String encryptedAlphabet;
 
-    RandomSubstitution()
+    MonoSubstitution(int shift)
     {
         this.alphabet = super.getAlphabet();
-        List<String> temp = Arrays.asList(alphabet.split("\\s*,\\s*"));
         this.encryptedAlphabet = "";
+        for (int i = 5; i < this.alphabet.length(); i++)
+        {
+            encryptedAlphabet += this.alphabet.charAt(i)
+        }
+        for (int i = 0; i < shift; i++)
+        {
+            encryptedAlphabet += this.alphabet.charAt(i)
+        }
+    }
+    MonoSubstitution()
+    {
+        this.alphabet = super.getAlphabet();
+        this.encryptedAlphabet = "";
+        List<String> temp = Arrays.asList(alphabet.split("\\s*,\\s*"));
         int tempLen = temp.size();
         for (int i = 0; i < tempLen; i++)
         {
@@ -25,15 +38,11 @@ public class RandomSubstitution extends AbstractCipher
         }
     }
 
-    public void encrypt(InputStream in, OutputStream out) throws IOException
+    MonoSubstitution(String encryptedAlphabet)
     {
-
+        this.alphabet = super.getAlphabet();
+        this.encryptedAlphabet = encryptedAlphabet;
     }
-    public void decrypt(InputStream in, OutputStream out) throws IOException
-    {
-
-    }
-
     public String encrypt(String plaintext)
     {
         String ciphertext = "";
@@ -68,5 +77,10 @@ public class RandomSubstitution extends AbstractCipher
             }
         }
         return plaintext;
+    }
+
+    public void save(OutputStream out)
+    {
+        outText
     }
 }

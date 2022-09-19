@@ -15,15 +15,6 @@ public class Vigenere extends AbstractCipher
         this.key = key;
     }
 
-    public void encrypt(InputStream in, OutputStream out) throws IOException
-    {
-
-    }
-    public void decrypt(InputStream in, OutputStream out) throws IOException
-    {
-
-    }
-
     public String encrypt(String plaintext)
     {
         String ciphertext = "";

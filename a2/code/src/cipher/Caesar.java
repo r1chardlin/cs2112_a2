@@ -17,11 +17,23 @@ public class Caesar extends AbstractCipher
 
     public void encrypt(InputStream in, OutputStream out) throws IOException
     {
-
+        byte[] plaintextArr = new byte[in.available()];
+        in.read(plaintextArr);
+        String plaintext = new String(plaintextArr);
+        String ciphertext = this.encrypt(plaintext);
+        String outText = "MONO\n" + ciphertext + "\n";
+        byte[] outBytes = outText.getBytes();
+        out.write(outBytes);
     }
     public void decrypt(InputStream in, OutputStream out) throws IOException
     {
-
+        byte[] ciphertextArr = new byte[in.available()];
+        in.read(ciphertextArr);
+        String ciphertext = new String(cipherTextArr);
+        String plaintext = this.decrypt(ciphertext);
+        String outText = "MONO\n" + plaintext + "\n";
+        byte[] outBytes = outText.getBytes();
+        out.write(outBytes);
     }
 
     public String encrypt(String plaintext)

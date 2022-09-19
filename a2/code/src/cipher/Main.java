@@ -61,7 +61,8 @@ public class Main {
         // check if arguments are exhausted
         if (pos == args.length) return pos;
 
-        switch (args[pos++]) {
+        switch (args[pos++])
+        {
             case "--em":
                 // TODO encrypt the given string
                 break;

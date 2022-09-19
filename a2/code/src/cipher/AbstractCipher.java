@@ -14,21 +14,60 @@ public abstract class AbstractCipher implements Cipher
     AbstractCipher()
     {
         this.alphabet = "abcdefghijklmnopqrstuvwxyz";
+        this.plaintext = null;
+        this.ciphertext = null;
     }
 
+    public getPlaintext()
+    {
+        return this.plaintext;
+    }
+
+    public getAlphabet()
+    {
+        return this.ciphertext;
+    }
     public String getAlphabet()
     {
         return this.alphabet;
     }
-    public abstract void encrypt(InputStream in, OutputStream out) throws IOException;
-    public abstract void decrypt(InputStream in, OutputStream out) throws IOException;
+
+    public void editPlaintext(String newText)
+    {
+        this.plaintext = newText
+    }
+
+    public void editCiphertext(String newText)
+    {
+        this.ciphertext = newText
+    }
+    public void encrypt(InputStream in, OutputStream out) throws IOException
+    {
+        byte[] plaintextArr = new byte[in.available()];
+        in.read(plaintextArr);
+        String plaintext = new String(plaintextArr);
+        editPlaintext(plaintext)
+        String ciphertext = this.encrypt(plaintext);
+        editCiphertext(ciphertext);
+        byte[] outBytes = ciphertext.getBytes();
+        out.write(outBytes);
+    }
+
+    public void decrypt(InputStream in, OutputStream out) throws IOException
+    {
+        byte[] ciphertextArr = new byte[in.available()];
+        in.read(ciphertextArr);
+        String ciphertext = new String(cipherTextArr);
+        editCiphertext(ciphertext);
+        String plaintext = this.decrypt(ciphertext);
+        editPlaintext(plaintext);
+        byte[] outBytes = plaintext.getBytes();
+        out.write(outBytes);
+    }
     public abstract String encrypt(String plaintext);
 
     public abstract String decrypt(String ciphertext);
 
-    public void save(OutputStream out) throws IOException
-    {
-
-    }
+    public abstract void save(OutputStream out) throws IOException;
 
 }
