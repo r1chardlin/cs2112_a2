@@ -12,8 +12,12 @@ package cipher;
  */
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         // TODO implement
+
+        // NOTE: To convert String to Input Stream -
+        // InputStream targetStream = new ByteArrayInputStream(initialString.getBytes());
     }
 
     /**
