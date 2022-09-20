@@ -87,8 +87,30 @@ public class RSA extends AbstractCipher implements ChunkReader
             byte[] chunk = Arrays.copyOfRange(data, byteIndex, byteIndex + this.chunkSize());
             BigInteger chunkInt = new BigInteger(chunk);
             // TODO: Use RSA to encrypt chunkInt
+            BigInteger encryptedInt = chunkInt.pow(this.e) % this.n;
+            byte[] encryptedBytes = encryptedInt.toByteArray();
+            if (encryptedBytes.length < 128)
+            {
+                byte[] temp = new byte[128];
+                int tempIndex = 0;
+                while (i < 128 - encryptedBytes.length)
+                {
+                    temp[tempIndex] = 0;
+                    tempIndex++;
+                }
+                int ogIndex = 0;
+                while(i < 128)
+                {
+                    temp[tempIndex] = encryptedBytes[ogIndex];
+                    tempIndex++;
+                    ogIndex++;
+                }
+                encryptedBytes = temp;
+            }
+            out.write(encryptedBytes);
             byteIndex += this.chunkSize();
         }
+        out.close();
     }
     public void decrypt(InputStream in, OutputStream out) throws IOException
     {

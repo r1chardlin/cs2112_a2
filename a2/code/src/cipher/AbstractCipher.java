@@ -53,6 +53,7 @@ public abstract class AbstractCipher implements Cipher
         {
             byte[] outBytes = ciphertext.getBytes();
             out.write(outBytes);
+            out.close();
         }
     }
 
@@ -68,6 +69,7 @@ public abstract class AbstractCipher implements Cipher
         {
             byte[] outBytes = plaintext.getBytes();
             out.write(outBytes);
+            out.close();
         }
     }
     public abstract String encrypt(String plaintext);
