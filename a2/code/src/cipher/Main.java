@@ -31,6 +31,7 @@ public class Main {
         String cmdFlag = args[pos++];
         switch (cmdFlag) {
             case "--caesar":
+                Caesar c = new Caesar(args,pos);
                 // TODO create a Caesar cipher object with the given shift parameter
                 break;
             case "--random":
@@ -40,6 +41,7 @@ public class Main {
                 // TODO load a monoaphabetic substitution cipher from a file
                 break;
             case "--vigenere":
+
                 // TODO create a new Vigenere Cipher with the given key
                 break;
             case "--vigenereLoad":
