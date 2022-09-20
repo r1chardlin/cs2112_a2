@@ -1,5 +1,7 @@
 package cipher;
 
+import java.util.Arrays;
+
 /**
  * Command line interface to allow users to interact with your ciphers.
  *
@@ -14,6 +16,25 @@ public class Main {
 
     public static void main(String[] args)
     {
+        // TESTING
+
+        // Caesar
+
+        // Random Substitution
+        MonoSubstitution randSub = new MonoSubstitution();
+        System.out.println(randSub.getAlphabet());
+        System.out.println(randSub.getEncryptedAlphabet());
+        String[] test = randSub.getEncryptedAlphabet().split("");
+        Arrays.sort(test);
+        System.out.println(Arrays.toString(test));
+        String result = randSub.encrypt("abcdefghijklmnopqrstuvwxyz");
+        System.out.println(result);
+        System.out.println(randSub.decrypt(result));
+
+        // Vigenere
+        Vigenere vigenere = new Vigenere("abc");
+        String remmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm  mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmsult = vigenere.encrypt("tomorrow and tomorrow and tomorrow in the petty pace from day to day");
+        System.out.println(result);
         // TODO implement
 
         // NOTE: To convert String to Input Stream -
@@ -31,7 +52,8 @@ public class Main {
         String cmdFlag = args[pos++];
         switch (cmdFlag) {
             case "--caesar":
-                Caesar c = new Caesar(args,pos);
+                CipherFactory caesarFactory = new CipherFactory();
+                Cipher caesar = new MonoSubstitution(args[pos++]);
                 // TODO create a Caesar cipher object with the given shift parameter
                 break;
             case "--random":

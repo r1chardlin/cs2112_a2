@@ -8,35 +8,40 @@ import java.util.List;
 
 public class MonoSubstitution extends AbstractCipher
 {
-    private String alphabet;
     private String encryptedAlphabet;
 
     // Caesar
     MonoSubstitution(int shift)
     {
-        this.alphabet = super.getAlphabet();
         this.encryptedAlphabet = "";
-        for (int i = 5; i < this.alphabet.length(); i++)
+        for (int i = shift; i < super.getAlphabet().length(); i++)
         {
-            encryptedAlphabet += this.alphabet.charAt(i);
+            encryptedAlphabet += super.getAlphabet().charAt(i);
         }
         for (int i = 0; i < shift; i++)
         {
-            encryptedAlphabet += this.alphabet.charAt(i);
+            encryptedAlphabet += super.getAlphabet().charAt(i);
         }
     }
 
     // Random Substitution
     MonoSubstitution()
     {
-        this.alphabet = super.getAlphabet();
         this.encryptedAlphabet = "";
-        List<String> temp = Arrays.asList(alphabet.split("\\s*,\\s*"));
+        String[] alphabetArr = super.getAlphabet().split("");
+//        System.out.println(Arrays.toString(alphabetArr));
+        ArrayList<String> temp = new ArrayList<String>();
+        for (int i = 0; i < alphabetArr.length; i++)
+        {
+            temp.add(alphabetArr[i]);
+        }
         int tempLen = temp.size();
+//        System.out.println(tempLen);
         for (int i = 0; i < tempLen; i++)
         {
             int index = (int)(Math.random() * temp.size());
-            encryptedAlphabet += temp.get(i);
+//            System.out.println(index);
+            encryptedAlphabet += temp.get(index);
             temp.remove(index);
         }
     }
@@ -44,8 +49,12 @@ public class MonoSubstitution extends AbstractCipher
     // Uses given encryptedAlphabet
     MonoSubstitution(String encryptedAlphabet)
     {
-        this.alphabet = super.getAlphabet();
         this.encryptedAlphabet = encryptedAlphabet;
+    }
+
+    public String getEncryptedAlphabet()
+    {
+        return this.encryptedAlphabet;
     }
 
     public String encrypt(String plaintext)
@@ -59,8 +68,8 @@ public class MonoSubstitution extends AbstractCipher
             }
             else
             {
-                int index = alphabet.indexOf(plaintext.charAt(i));
-                ciphertext += encryptedAlphabet.charAt(index);
+                int index = super.getAlphabet().indexOf(plaintext.charAt(i));
+                ciphertext += this.encryptedAlphabet.charAt(index);
             }
         }
         return ciphertext;
@@ -71,14 +80,14 @@ public class MonoSubstitution extends AbstractCipher
         String plaintext = "";
         for (int i = 0; i < ciphertext.length(); i++)
         {
-            if (Character.isWhitespace(plaintext.charAt(i)))
+            if (Character.isWhitespace(ciphertext.charAt(i)))
             {
                 plaintext += " ";
             }
             else
             {
                 int index = encryptedAlphabet.indexOf(ciphertext.charAt(i));
-                plaintext += alphabet.charAt(index);
+                plaintext += super.getAlphabet().charAt(index);
             }
         }
         return plaintext;

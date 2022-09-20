@@ -9,7 +9,7 @@ public abstract class AbstractCipher implements Cipher
 {
     private String plaintext;
     private String ciphertext;
-    private String alphabet;
+    private final String alphabet;
 
     AbstractCipher()
     {
