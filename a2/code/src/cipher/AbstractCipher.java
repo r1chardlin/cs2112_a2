@@ -18,12 +18,12 @@ public abstract class AbstractCipher implements Cipher
         this.ciphertext = null;
     }
 
-    public getPlaintext()
+    public String getPlaintext()
     {
         return this.plaintext;
     }
 
-    public getAlphabet()
+    public String getCiphertext()
     {
         return this.ciphertext;
     }
@@ -34,12 +34,12 @@ public abstract class AbstractCipher implements Cipher
 
     public void editPlaintext(String newText)
     {
-        this.plaintext = newText
+        this.plaintext = newText;
     }
 
     public void editCiphertext(String newText)
     {
-        this.ciphertext = newText
+        this.ciphertext = newText;
     }
     public void encrypt(InputStream in, OutputStream out) throws IOException
     {
@@ -49,32 +49,32 @@ public abstract class AbstractCipher implements Cipher
         editPlaintext(plaintext);
         String ciphertext = this.encrypt(plaintext);
         editCiphertext(ciphertext);
-        if (out != null)
-        {
-            byte[] outBytes = ciphertext.getBytes();
-            out.write(outBytes);
-            out.close();
-        }
+        byte[] outBytes = ciphertext.getBytes();
+        out.write(outBytes);
+        out.close();
     }
 
     public void decrypt(InputStream in, OutputStream out) throws IOException
     {
         byte[] ciphertextArr = new byte[in.available()];
         in.read(ciphertextArr);
-        String ciphertext = new String(cipherTextArr);
+        String ciphertext = new String(ciphertextArr);
         editCiphertext(ciphertext);
         String plaintext = this.decrypt(ciphertext);
         editPlaintext(plaintext);
-        if (out != null)
-        {
-            byte[] outBytes = plaintext.getBytes();
-            out.write(outBytes);
-            out.close();
-        }
+        byte[] outBytes = plaintext.getBytes();
+        out.write(outBytes);
+        out.close();
     }
-    public abstract String encrypt(String plaintext);
+    public String encrypt(String plaintext)
+    {
+        return null;
+    }
 
-    public abstract String decrypt(String ciphertext);
+    public String decrypt(String ciphertext)
+    {
+        return null;
+    }
 
     public abstract void save(OutputStream out) throws IOException;
 

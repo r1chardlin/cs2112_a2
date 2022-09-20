@@ -18,11 +18,11 @@ public class MonoSubstitution extends AbstractCipher
         this.encryptedAlphabet = "";
         for (int i = 5; i < this.alphabet.length(); i++)
         {
-            encryptedAlphabet += this.alphabet.charAt(i)
+            encryptedAlphabet += this.alphabet.charAt(i);
         }
         for (int i = 0; i < shift; i++)
         {
-            encryptedAlphabet += this.alphabet.charAt(i)
+            encryptedAlphabet += this.alphabet.charAt(i);
         }
     }
 
@@ -84,10 +84,10 @@ public class MonoSubstitution extends AbstractCipher
         return plaintext;
     }
 
-    public void save(OutputStream out)
-    {
+    public void save(OutputStream out) throws IOException {
         String outText = "MONO\n" + this.encryptedAlphabet + "\n";
         byte[] outBytes = outText.getBytes();
         out.write(outBytes);
+        out.close();
     }
 }

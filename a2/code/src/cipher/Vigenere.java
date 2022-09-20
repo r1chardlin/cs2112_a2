@@ -75,10 +75,10 @@ public class Vigenere extends AbstractCipher
         return plaintext;
     }
 
-    public void save(OutputStream out)
-    {
+    public void save(OutputStream out) throws IOException {
         String outText = "VIGENERE\n" + this.key + "\n";
         byte[] outBytes = outText.getBytes();
         out.write(outBytes);
+        out.close();
     }
 }
