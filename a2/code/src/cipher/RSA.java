@@ -1,5 +1,4 @@
 package cipher;
-import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -13,22 +12,17 @@ import java.util.Random;
  * @author Allison Zheng
  * @version 2022.09.22
  */
-public class RSA extends AbstractCipher implements ChunkReader
+public class RSA extends AbstractCipher
 {
     private BigInteger e;
     private BigInteger n;
     private BigInteger d;
-
-    private int byteIndex;
-    private int dataLen;
 
     /**
      * Creates an RSA cipher using randomly generated values for p and q
      */
     RSA()
     {
-        this.byteIndex = 0;
-        this.dataLen = 0;
         Random randP = new Random();
         Random randQ = new Random();
         BigInteger p = new BigInteger(511, 20, randP);
@@ -60,53 +54,6 @@ public class RSA extends AbstractCipher implements ChunkReader
         this.e = e;
         this.n = n;
         this.d = d;
-        this.byteIndex = 0;
-        this.dataLen = 0;
-    }
-
-    /**
-     * Returns the maximum number of bytes in a chunk.
-     */
-    public int chunkSize()
-    {
-        return 126;
-    }
-
-    /**
-     * Returns true if and only if there is at least one more byte of data to be
-     * read in the current stream.
-     */
-    public boolean hasNext()
-    {
-        if (byteIndex < dataLen)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Returns the next chunk of up to {@code chunkSize()} bytes from the current
-     * input stream. The returned bytes are placed in the array {@code data},
-     * starting from index 0. The number of bytes returned is always
-     * {@code chunkSize()}, unless the end of the input stream has been reached and
-     * there are fewer than {@code chunkSize()} bytes available, in which case all
-     * remaining bytes are returned. The values in {@code data} after the region in
-     * which bytes were written are unspecified.
-     *
-     * @param data An array of length at least {@code chunkSize()}.
-     * @return The number of bytes returned, which is always between 1 and the chunk
-     *         size.
-     * @throws EOFException if there are no more bytes available.
-     * @throws IOException  if any IO exception occurs.
-     */
-    public int nextChunk(byte[] data) throws EOFException, IOException
-    {
-        if (byteIndex + this.chunkSize() - 1 < data.length)
-        {
-            return this.chunkSize();
-        }
-        return data.length - byteIndex;
     }
 
     /**
@@ -119,18 +66,19 @@ public class RSA extends AbstractCipher implements ChunkReader
      */
     public void encrypt(InputStream in, OutputStream out) throws IOException
     {
-//        byte[] plaintextArr = new byte[in.available()];
-        this.dataLen = in.available();
-//        in.read(plaintextArr);
-        while (this.hasNext())
+        Data chunkReader = new Data(126, in.available());
+        while (chunkReader.hasNext())
         {
-//            byte[] tempChunk = Arrays.copyOfRange(plaintextArr, this.byteIndex, this.byteIndex + this.chunkSize());
-            byte[] tempChunk = new byte[this.chunkSize()];
-            in.read(tempChunk, this.byteIndex, this.byteIndex + this.chunkSize());
-            byte[] chunk = new byte[this.chunkSize() + 1];
-            if (byteIndex + this.chunkSize() >= this.dataLen)
+            byte[] tempChunk = new byte[chunkReader.chunkSize()];
+            in.read(tempChunk, chunkReader.getByteIndex(), chunkReader.getByteIndex() + chunkReader.chunkSize());
+            byte[] chunk = new byte[chunkReader.chunkSize() + 1];
+            if (chunkReader.getByteIndex() + chunkReader.chunkSize() >= chunkReader.getDataLen())
             {
-                chunk[0] = (byte)(this.dataLen - this.byteIndex);
+                chunk[0] = (byte)(chunkReader.getDataLen() - chunkReader.getByteIndex());
+            }
+            else
+            {
+                chunk[0] = (byte)(chunkReader.chunkSize());
             }
             for (int i = 0; i < tempChunk.length; i++)
             {
@@ -140,7 +88,6 @@ public class RSA extends AbstractCipher implements ChunkReader
             // TODO: Use RSA to encrypt chunkInt
             BigInteger encryptedInt = chunkInt.modPow(this.e, this.n);
             byte[] encryptedBytes = encryptedInt.toByteArray();
-//            byte[] encryptedBytes = chunkInt.toByteArray();
             if (encryptedBytes.length < 128)
             {
                 byte[] temp = new byte[128];
@@ -162,7 +109,7 @@ public class RSA extends AbstractCipher implements ChunkReader
             if (out != null)
             {
                 out.write(encryptedBytes);
-                byteIndex += this.chunkSize();
+                chunkReader.increaseByteIndex();
             }
             else
             {
@@ -185,15 +132,11 @@ public class RSA extends AbstractCipher implements ChunkReader
      */
     public void decrypt(InputStream in, OutputStream out) throws IOException
     {
-//        byte[] ciphertextArr = new byte[in.available()];
-//        in.read(ciphertextArr);
-        int fileLen = in.available();
-        int byteIndex2 = 0;
-        while(byteIndex2 <= fileLen - 128)
+        Data chunkReader = new Data(128, in.available());
+        while(chunkReader.hasNext())
         {
-//            byte[] encryptedBytes = Arrays.copyOfRange(ciphertextArr, byteIndex2, byteIndex2 + 128);
-            byte[] encryptedChunk = new byte[128];
-            in.read(encryptedChunk, byteIndex2, byteIndex2 + 128);
+            byte[] encryptedChunk = new byte[chunkReader.chunkSize()];
+            in.read(encryptedChunk, chunkReader.getByteIndex(), chunkReader.getByteIndex() + 128);
             BigInteger encryptedInt = new BigInteger(encryptedChunk);
             BigInteger chunkInt = encryptedInt.modPow(this.d, this.n);
             byte[] chunk = chunkInt.toByteArray();
@@ -203,7 +146,6 @@ public class RSA extends AbstractCipher implements ChunkReader
             {
                 reducedChunk[i] = chunk[i + 1];
             }
-//            byte[] chunk = encryptedInt.toByteArray();
             if (out != null)
             {
                 out.write(reducedChunk);
@@ -212,7 +154,7 @@ public class RSA extends AbstractCipher implements ChunkReader
             {
                 System.out.print(new String(reducedChunk));
             }
-            byteIndex2 += 128;
+            chunkReader.increaseByteIndex();
         }
         if (out != null)
         {
