@@ -24,6 +24,10 @@ public class RSA extends AbstractCipher implements ChunkReader
         Random randQ = new Random();
         BigInteger p = new BigInteger(511, 20, randP);
         BigInteger q = new BigInteger(511, 20, randQ);
+        while (p.equals(q))
+        {
+            q = new BigInteger(511, 20, randQ);
+        }
         this.n = p.multiply(q);
         BigInteger one = new BigInteger("1");
         BigInteger totient = p.subtract(one).multiply(q.subtract(one));
@@ -131,10 +135,20 @@ public class RSA extends AbstractCipher implements ChunkReader
                 }
                 encryptedBytes = temp;
             }
-            out.write(encryptedBytes);
-            byteIndex += this.chunkSize();
+            if (out != null)
+            {
+                out.write(encryptedBytes);
+                byteIndex += this.chunkSize();
+            }
+            else
+            {
+                System.out.print(Arrays.toString(encryptedBytes));
+            }
         }
-        out.close();
+        if (out != null)
+        {
+            out.close();
+        }
     }
     public void decrypt(InputStream in, OutputStream out) throws IOException
     {
@@ -154,10 +168,20 @@ public class RSA extends AbstractCipher implements ChunkReader
                 reducedChunk[i] = chunk[i + 1];
             }
 //            byte[] chunk = encryptedInt.toByteArray();
-            out.write(reducedChunk);
-            byteIndex2 += 128;
+            if (out != null)
+            {
+                out.write(reducedChunk);
+                byteIndex2 += 128;
+            }
+            else
+            {
+                System.out.print(new String(reducedChunk));
+            }
         }
-        out.close();
+        if (out != null)
+        {
+            out.close();
+        }
     }
 
     public void save(OutputStream out) throws IOException

@@ -49,9 +49,16 @@ public abstract class AbstractCipher implements Cipher
         editPlaintext(plaintext);
         String ciphertext = this.encrypt(plaintext);
         editCiphertext(ciphertext);
-        byte[] outBytes = ciphertext.getBytes();
-        out.write(outBytes);
-        out.close();
+        if (out != null)
+        {
+            byte[] outBytes = ciphertext.getBytes();
+            out.write(outBytes);
+            out.close();
+        }
+        else
+        {
+            System.out.println(ciphertext);
+        }
     }
 
     public void decrypt(InputStream in, OutputStream out) throws IOException
@@ -62,9 +69,16 @@ public abstract class AbstractCipher implements Cipher
         editCiphertext(ciphertext);
         String plaintext = this.decrypt(ciphertext);
         editPlaintext(plaintext);
-        byte[] outBytes = plaintext.getBytes();
-        out.write(outBytes);
-        out.close();
+        if (out != null)
+        {
+            byte[] outBytes = plaintext.getBytes();
+            out.write(outBytes);
+            out.close();
+        }
+        else
+        {
+            System.out.println(plaintext);
+        }
     }
     public String encrypt(String plaintext)
     {
