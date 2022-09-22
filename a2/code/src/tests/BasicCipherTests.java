@@ -38,7 +38,7 @@ public class BasicCipherTests {
     void testBasicRSA() throws Exception {
         Cipher rsa = cipherFactory.getRSACipher();
         String s = "dog";
-        File f = new File("examples/temp.rsa");
+        File f = new File("a2/code/examples/temp.txt");
         FileOutputStream fileOutputStream = new FileOutputStream(f);
         f.createNewFile();
         rsa.encrypt(new ByteArrayInputStream(s.getBytes()), fileOutputStream);

@@ -1,5 +1,8 @@
 package cipher;
 
+import tests.BasicCipherTests;
+
+import java.io.*;
 import java.util.Arrays;
 
 /**
@@ -14,32 +17,57 @@ import java.util.Arrays;
  */
 public class Main {
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) throws IOException {
         // TESTING
 
         // Caesar
 
-        // Random Substitution
-        MonoSubstitution randSub = new MonoSubstitution();
-        System.out.println(randSub.getAlphabet());
-        System.out.println(randSub.getEncryptedAlphabet());
-        String[] test = randSub.getEncryptedAlphabet().split("");
-        Arrays.sort(test);
-        System.out.println(Arrays.toString(test));
-        String result = randSub.encrypt("abcdefghijklmnopqrstuvwxyz");
-        System.out.println(result);
-        System.out.println(randSub.decrypt(result));
+//        // Random Substitution
+//        MonoSubstitution randSub = new MonoSubstitution();
+//        System.out.println(randSub.getAlphabet());
+//        System.out.println(randSub.getEncryptedAlphabet());
+//        String[] test = randSub.getEncryptedAlphabet().split("");
+//        Arrays.sort(test);
+//        System.out.println(Arrays.toString(test));
+//        String randResult = randSub.encrypt("abcdefghijklmnopqrstuvwxyz");
+//        System.out.println(randResult);
+//        System.out.println(randSub.decrypt(randResult));
 
         // Vigenere
-        Vigenere vigenere = new Vigenere("abc");
-        String remmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm  mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmsult = vigenere.encrypt("tomorrow and tomorrow and tomorrow in the petty pace from day to day");
-        System.out.println(result);
+//        Vigenere vigenere = new Vigenere("abc");
+//        String input = "tomorrow and tomorrow and tomorrow in the petty pace from day to day";
+//        InputStream in = new ByteArrayInputStream(input.getBytes());
+//        OutputStream out = new FileOutputStream("test.txt");
+//        vigenere.encrypt(in, out);
+//        InputStream in2 = new FileInputStream("test.txt");
+//        OutputStream out2 = new FileOutputStream("test2.txt");
+//        vigenere.decrypt(in2, out2);
+//        String vigResult = vigenere.encrypt("tomorrow and tomorrow and tomorrow in the petty pace from day to day");
+//        System.out.println(vigResult);
+//        System.out.println(vigenere.decrypt(vigResult));
+
+        // RSA
+        RSA rsa = new RSA();
+        String inStr = "hell";
+        InputStream inRSA = new ByteArrayInputStream(inStr.getBytes());
+        OutputStream outRSA = new FileOutputStream("rsaTest.txt");
+        rsa.encrypt(inRSA, outRSA);
+        InputStream inRSA2 = new FileInputStream("rsaTest.txt");
+        OutputStream outRSA2 = new FileOutputStream("rsaTest2.txt");
+        rsa.decrypt(inRSA2, outRSA2);
+
+
+
         // TODO implement
 
         // NOTE: To convert String to Input Stream -
         // InputStream targetStream = new ByteArrayInputStream(initialString.getBytes());
     }
+
+//    public static String cipherType;
+//    public static String[] extraArgs;
+    public static CipherFactory factory = new CipherFactory();
+    public static Cipher cipher;
 
     /**
      * Set up the cipher type based on the options found in args starting at position pos, and
@@ -52,8 +80,8 @@ public class Main {
         String cmdFlag = args[pos++];
         switch (cmdFlag) {
             case "--caesar":
-                CipherFactory caesarFactory = new CipherFactory();
-                Cipher caesar = new MonoSubstitution(args[pos++]);
+                int shift = Integer.parseInt(args[pos++]);
+                cipher = factory.getCaesarCipher(shift);
                 // TODO create a Caesar cipher object with the given shift parameter
                 break;
             case "--random":

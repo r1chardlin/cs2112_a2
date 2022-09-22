@@ -49,15 +49,15 @@ public class Vigenere extends AbstractCipher
     {
         String plaintext = "";
         int keyIndex = 0;
-        for (int i = 0; i < plaintext.length(); i++)
+        for (int i = 0; i < ciphertext.length(); i++)
         {
-            if (Character.isWhitespace(plaintext.charAt(i)))
+            if (Character.isWhitespace(ciphertext.charAt(i)))
             {
                 plaintext += " ";
             }
             else
             {
-                int charValue = alphabet.indexOf(plaintext.charAt(i));
+                int charValue = alphabet.indexOf(ciphertext.charAt(i));
                 int keyValue = alphabet.indexOf(key.charAt(keyIndex)) + 1;
                 int value = charValue - keyValue;
                 if (value < 0)
