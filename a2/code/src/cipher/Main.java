@@ -16,6 +16,9 @@ import java.util.Arrays;
  *
  * <p>Regardless of which option you choose, remember to minimize repetitive code. You are welcome
  * to add additional methods or alter the provided code to achieve this.
+ * @author Richard Lin
+ * @author Allison Zheng
+ * @version 2022.9.22
  */
 public class Main {
 

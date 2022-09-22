@@ -119,12 +119,14 @@ public class RSA extends AbstractCipher implements ChunkReader
      */
     public void encrypt(InputStream in, OutputStream out) throws IOException
     {
-        byte[] plaintextArr = new byte[in.available()];
-        this.dataLen = plaintextArr.length;
-        in.read(plaintextArr);
+//        byte[] plaintextArr = new byte[in.available()];
+        this.dataLen = in.available();
+//        in.read(plaintextArr);
         while (this.hasNext())
         {
-            byte[] tempChunk = Arrays.copyOfRange(plaintextArr, this.byteIndex, this.byteIndex + this.chunkSize());
+//            byte[] tempChunk = Arrays.copyOfRange(plaintextArr, this.byteIndex, this.byteIndex + this.chunkSize());
+            byte[] tempChunk = new byte[this.chunkSize()];
+            in.read(tempChunk, this.byteIndex, this.byteIndex + this.chunkSize());
             byte[] chunk = new byte[this.chunkSize() + 1];
             if (byteIndex + this.chunkSize() >= this.dataLen)
             {
@@ -183,13 +185,16 @@ public class RSA extends AbstractCipher implements ChunkReader
      */
     public void decrypt(InputStream in, OutputStream out) throws IOException
     {
-        byte[] ciphertextArr = new byte[in.available()];
-        in.read(ciphertextArr);
+//        byte[] ciphertextArr = new byte[in.available()];
+//        in.read(ciphertextArr);
+        int fileLen = in.available();
         int byteIndex2 = 0;
-        while(byteIndex2 <= ciphertextArr.length - 128)
+        while(byteIndex2 <= fileLen - 128)
         {
-            byte[] encryptedBytes = Arrays.copyOfRange(ciphertextArr, byteIndex2, byteIndex2 + 128);
-            BigInteger encryptedInt = new BigInteger(encryptedBytes);
+//            byte[] encryptedBytes = Arrays.copyOfRange(ciphertextArr, byteIndex2, byteIndex2 + 128);
+            byte[] encryptedChunk = new byte[128];
+            in.read(encryptedChunk, byteIndex2, byteIndex2 + 128);
+            BigInteger encryptedInt = new BigInteger(encryptedChunk);
             BigInteger chunkInt = encryptedInt.modPow(this.d, this.n);
             byte[] chunk = chunkInt.toByteArray();
             int plaintextLen = chunk[0];
