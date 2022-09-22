@@ -7,6 +7,12 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * Represents an RSA cipher
+ * @author Richard Lin
+ * @author Allison Zheng
+ * @version 2022.09.22
+ */
 public class RSA extends AbstractCipher implements ChunkReader
 {
     private BigInteger e;
@@ -16,6 +22,9 @@ public class RSA extends AbstractCipher implements ChunkReader
     private int byteIndex;
     private int dataLen;
 
+    /**
+     * Creates an RSA cipher using randomly generated values for p and q
+     */
     RSA()
     {
         this.byteIndex = 0;
@@ -40,6 +49,12 @@ public class RSA extends AbstractCipher implements ChunkReader
         this.d = this.e.modInverse(totient);
     }
 
+    /**
+     * Creates an RSA cipher given e, n, and d
+     * @param e An integer that is relatively prime to the totient
+     * @param n The product of p and q
+     * @param d The multiplicative inverse of e modulo the totient
+     */
     RSA(BigInteger e, BigInteger n, BigInteger d)
     {
         this.e = e;
@@ -94,7 +109,14 @@ public class RSA extends AbstractCipher implements ChunkReader
         return data.length - byteIndex;
     }
 
-
+    /**
+     * Encrypts the plaintext bytes given in the InputStream in using e and n.
+     * Writes the encryptedBytes to the OutputStream out if out != null.
+     * Otherwise, prints the encryptedBytes
+     * @param in The InputStream the plaintext is on
+     * @param out The OutputStream to send the ciphertext to
+     * @throws IOException
+     */
     public void encrypt(InputStream in, OutputStream out) throws IOException
     {
         byte[] plaintextArr = new byte[in.available()];
@@ -150,6 +172,15 @@ public class RSA extends AbstractCipher implements ChunkReader
             out.close();
         }
     }
+
+    /**
+     * Decrypts the cipherText bytes given in the InputStream in using d and n.
+     * Writes the decrypted bytes to the OutputStream out if out != null.
+     * Otherwise, prints the decrypted bytes
+     * @param in The InputStream the ciphertext is on
+     * @param out The OutputStream to send the plaintext to
+     * @throws IOException
+     */
     public void decrypt(InputStream in, OutputStream out) throws IOException
     {
         byte[] ciphertextArr = new byte[in.available()];
@@ -171,12 +202,12 @@ public class RSA extends AbstractCipher implements ChunkReader
             if (out != null)
             {
                 out.write(reducedChunk);
-                byteIndex2 += 128;
             }
             else
             {
                 System.out.print(new String(reducedChunk));
             }
+            byteIndex2 += 128;
         }
         if (out != null)
         {

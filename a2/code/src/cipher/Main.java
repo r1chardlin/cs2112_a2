@@ -1,7 +1,7 @@
 package cipher;
 
-import tests.BasicCipherTests;
-
+import cipher.Cipher;
+import cipher.CipherFactory;
 import java.awt.event.InputEvent;
 import java.io.*;
 import java.math.BigInteger;
@@ -19,7 +19,8 @@ import java.util.Arrays;
  */
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException
+    {
         // TESTING
 
         // Caesar
@@ -50,7 +51,7 @@ public class Main {
 
         // RSA
 //        RSA rsa = new RSA();
-//        String inStr = "hello world";
+//        String inStr = "Hello world!";
 //        InputStream inRSA = new ByteArrayInputStream(inStr.getBytes());
 //        OutputStream outRSA = new FileOutputStream("rsaTest.txt");
 //        rsa.encrypt(inRSA, outRSA);
@@ -62,6 +63,7 @@ public class Main {
         // NOTE: To convert String to Input Stream -
         // InputStream targetStream = new ByteArrayInputStream(initialString.getBytes());
         Main inputParser = new Main();
+//        System.out.println("test");
         int pos = 0;
         pos = inputParser.parseCipherType(args, pos);
         pos = inputParser.parseCipherFunction(args, pos);
@@ -132,9 +134,9 @@ public class Main {
                 String eStr = fhandRSA.readLine();
                 String nStr = fhandRSA.readLine();
                 String dStr = fhandRSA.readLine();
-                eStr = eStr.substring(0, eStr.length() - 1);
-                nStr = nStr.substring(0, nStr.length() - 1);
-                dStr = dStr.substring(0, dStr.length() - 1);
+//                eStr = eStr.substring(0, eStr.length() - 1);
+//                nStr = nStr.substring(0, nStr.length() - 1);
+//                dStr = dStr.substring(0, dStr.length() - 1);
                 BigInteger e = new BigInteger(eStr);
                 BigInteger n = new BigInteger(nStr);
                 BigInteger d = new BigInteger(dStr);
