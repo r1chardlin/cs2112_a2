@@ -41,18 +41,15 @@ public class MonoSubstitution extends AbstractCipher
     {
         this.encryptedAlphabet = "";
         String[] alphabetArr = super.getAlphabet().split("");
-//        System.out.println(Arrays.toString(alphabetArr));
         ArrayList<String> temp = new ArrayList<String>();
         for (int i = 0; i < alphabetArr.length; i++)
         {
             temp.add(alphabetArr[i]);
         }
         int tempLen = temp.size();
-//        System.out.println(tempLen);
         for (int i = 0; i < tempLen; i++)
         {
             int index = (int)(Math.random() * temp.size());
-//            System.out.println(index);
             encryptedAlphabet += temp.get(index);
             temp.remove(index);
         }
