@@ -120,7 +120,6 @@ public class RSA extends AbstractCipher
                 chunk[i + 1] = tempChunk[i];
             }
             BigInteger chunkInt = new BigInteger(chunk);
-            // TODO: Use RSA to encrypt chunkInt
             BigInteger encryptedInt = chunkInt.modPow(this.e, this.n);
             byte[] encryptedBytes = encryptedInt.toByteArray();
             if (encryptedBytes.length < 128)
