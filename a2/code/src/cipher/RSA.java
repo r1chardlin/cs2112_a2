@@ -66,8 +66,8 @@ public class RSA extends AbstractCipher
     }
 
     /**
-     * Gets e
-     * @return e
+     * Gets n
+     * @return n
      */
     public BigInteger getN()
     {
@@ -75,8 +75,8 @@ public class RSA extends AbstractCipher
     }
 
     /**
-     * Gets e
-     * @return e
+     * Gets d
+     * @return d
      */
     public BigInteger getD()
     {
