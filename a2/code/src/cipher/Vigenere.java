@@ -12,7 +12,6 @@ import java.io.OutputStream;
  */
 public class Vigenere extends AbstractCipher
 {
-    private String alphabet;
     private String key;
 
     /**
@@ -21,8 +20,16 @@ public class Vigenere extends AbstractCipher
      */
     Vigenere(String key)
     {
-        this.alphabet = super.getAlphabet();
         this.key = key;
+    }
+
+    /**
+     * Gets the key
+     * @return The key used to encrypt the plaintext
+     */
+    public String getKey()
+    {
+        return this.key;
     }
 
     /**
@@ -42,16 +49,16 @@ public class Vigenere extends AbstractCipher
             }
             else
             {
-                int charValue = alphabet.indexOf(plaintext.charAt(i));
-                int keyValue = alphabet.indexOf(key.charAt(keyIndex)) + 1;
+                int charValue = super.getAlphabet().indexOf(plaintext.charAt(i));
+                int keyValue = super.getAlphabet().indexOf(this.key.charAt(keyIndex)) + 1;
                 int value = charValue + keyValue;
-                if (value >= alphabet.length())
+                if (value >= super.getAlphabet().length())
                 {
-                    value -= alphabet.length();
+                    value -= super.getAlphabet().length();
                 }
-                ciphertext += alphabet.charAt(value);
+                ciphertext += super.getAlphabet().charAt(value);
                 keyIndex++;
-                if (keyIndex >= key.length())
+                if (keyIndex >= this.key.length())
                 {
                     keyIndex = 0;
                 }
@@ -77,16 +84,16 @@ public class Vigenere extends AbstractCipher
             }
             else
             {
-                int charValue = alphabet.indexOf(ciphertext.charAt(i));
-                int keyValue = alphabet.indexOf(key.charAt(keyIndex)) + 1;
+                int charValue = super.getAlphabet().indexOf(ciphertext.charAt(i));
+                int keyValue = super.getAlphabet().indexOf(this.key.charAt(keyIndex)) + 1;
                 int value = charValue - keyValue;
                 if (value < 0)
                 {
-                    value = alphabet.length() + value;
+                    value = super.getAlphabet().length() + value;
                 }
-                plaintext += alphabet.charAt(value);
+                plaintext += super.getAlphabet().charAt(value);
                 keyIndex++;
-                if (keyIndex >= key.length())
+                if (keyIndex >= this.key.length())
                 {
                     keyIndex = 0;
                 }
