@@ -15,7 +15,7 @@ public class CipherFactory {
      */
     public Cipher getMonoCipher(String encrAlph)
     {
-        return new MonoSubstitution(encrAlph); // TODO implement
+        return new MonoSubstitution(encrAlph);
     }
 
     /**
@@ -25,7 +25,6 @@ public class CipherFactory {
      */
     public Cipher getCaesarCipher(int shift)
     {
-        // TODO implement
         return new MonoSubstitution(shift);
     }
 
@@ -36,21 +35,18 @@ public class CipherFactory {
      */
     public Cipher getVigenereCipher(String key)
     {
-        // TODO implement
         return new Vigenere(key);
     }
 
     /** Returns a new monoalphabetic substitution cipher with a randomly generated mapping. */
     public Cipher getRandomSubstitutionCipher()
     {
-        // TODO implement
         return new MonoSubstitution();
     }
 
     /** Returns a new RSA cipher with a randomly generated keys. */
     public Cipher getRSACipher()
     {
-        // TODO implement
         return new RSA();
     }
 
@@ -63,7 +59,6 @@ public class CipherFactory {
      */
     public Cipher getRSACipher(BigInteger e, BigInteger n, BigInteger d)
     {
-        // TODO implement
         return new RSA(e, n, d);
     }
 }
