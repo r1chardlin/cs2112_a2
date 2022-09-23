@@ -64,7 +64,7 @@ public class Data implements ChunkReader
      */
     public boolean hasNext()
     {
-        if (byteIndex < dataLen)
+        if (this.byteIndex < this.dataLen)
         {
             return true;
         }

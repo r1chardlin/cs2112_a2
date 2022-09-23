@@ -67,10 +67,22 @@ public class RSA extends AbstractCipher
     public void encrypt(InputStream in, OutputStream out) throws IOException
     {
         Data chunkReader = new Data(126, in.available());
+//        System.out.println(in.available());
+//        System.out.println(chunkReader.chunkSize());
         while (chunkReader.hasNext())
         {
             byte[] tempChunk = new byte[chunkReader.chunkSize()];
-            in.read(tempChunk, chunkReader.getByteIndex(), chunkReader.getByteIndex() + chunkReader.chunkSize());
+//            System.out.println(chunkReader.getByteIndex());
+//            in.read(tempChunk, chunkReader.getByteIndex(), chunkReader.chunkSize());
+            for (int i = 0; i < chunkReader.chunkSize(); i++)
+            {
+                int nextByte = in.read();
+                if (nextByte == -1)
+                {
+                    nextByte = (byte)(0);
+                }
+                tempChunk[i] = (byte)(nextByte);
+            }
             byte[] chunk = new byte[chunkReader.chunkSize() + 1];
             if (chunkReader.getByteIndex() + chunkReader.chunkSize() >= chunkReader.getDataLen())
             {
@@ -136,7 +148,12 @@ public class RSA extends AbstractCipher
         while(chunkReader.hasNext())
         {
             byte[] encryptedChunk = new byte[chunkReader.chunkSize()];
-            in.read(encryptedChunk, chunkReader.getByteIndex(), chunkReader.getByteIndex() + 128);
+//            in.read(encryptedChunk, chunkReader.getByteIndex(), chunkReader.chunkSize());
+            for (int i = 0; i < chunkReader.chunkSize(); i++)
+            {
+                int nextByte = in.read();
+                encryptedChunk[i] = (byte)(nextByte);
+            }
             BigInteger encryptedInt = new BigInteger(encryptedChunk);
             BigInteger chunkInt = encryptedInt.modPow(this.d, this.n);
             byte[] chunk = chunkInt.toByteArray();

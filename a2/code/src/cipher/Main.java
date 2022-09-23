@@ -20,7 +20,8 @@ import java.util.Arrays;
  * @author Allison Zheng
  * @version 2022.9.22
  */
-public class Main {
+public class Main
+{
 
     public static void main(String[] args) throws IOException
     {
