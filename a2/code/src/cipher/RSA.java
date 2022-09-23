@@ -94,13 +94,9 @@ public class RSA extends AbstractCipher
     public void encrypt(InputStream in, OutputStream out) throws IOException
     {
         Data chunkReader = new Data(126, in.available());
-//        System.out.println(in.available());
-//        System.out.println(chunkReader.chunkSize());
         while (chunkReader.hasNext())
         {
             byte[] tempChunk = new byte[chunkReader.chunkSize()];
-//            System.out.println(chunkReader.getByteIndex());
-//            in.read(tempChunk, chunkReader.getByteIndex(), chunkReader.chunkSize());
             for (int i = 0; i < chunkReader.chunkSize(); i++)
             {
                 int nextByte = in.read();
@@ -175,7 +171,6 @@ public class RSA extends AbstractCipher
         while(chunkReader.hasNext())
         {
             byte[] encryptedChunk = new byte[chunkReader.chunkSize()];
-//            in.read(encryptedChunk, chunkReader.getByteIndex(), chunkReader.chunkSize());
             for (int i = 0; i < chunkReader.chunkSize(); i++)
             {
                 int nextByte = in.read();
