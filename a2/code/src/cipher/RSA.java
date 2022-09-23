@@ -57,6 +57,33 @@ public class RSA extends AbstractCipher
     }
 
     /**
+     * Gets e
+     * @return e
+     */
+    public BigInteger getE()
+    {
+        return this.e;
+    }
+
+    /**
+     * Gets e
+     * @return e
+     */
+    public BigInteger getN()
+    {
+        return this.n;
+    }
+
+    /**
+     * Gets e
+     * @return e
+     */
+    public BigInteger getD()
+    {
+        return this.d;
+    }
+
+    /**
      * Encrypts the plaintext bytes given in the InputStream in using e and n.
      * Writes the encryptedBytes to the OutputStream out if out != null.
      * Otherwise, prints the encryptedBytes
