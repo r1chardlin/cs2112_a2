@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * Represent a Vigenere cipher
+ * Representscd git a Vigenere cipher
  * @author Richard Lin
  * @author Allison Zheng
  * @version 2022.09.22
