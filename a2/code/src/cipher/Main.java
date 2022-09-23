@@ -69,11 +69,15 @@ public class Main
         Main inputParser = new Main();
 //        System.out.println("test");
         int pos = 0;
+
         pos = inputParser.parseCipherType(args, pos);
-        pos = inputParser.parseCipherFunction(args, pos);
-        while (pos < args.length)
+        if (!invalidInpFlag)
         {
-            pos = inputParser.parseOutputOptions(args, pos);
+            pos = inputParser.parseCipherFunction(args, pos);
+            while (pos < args.length && !invalidInpFlag)
+            {
+                pos = inputParser.parseOutputOptions(args, pos);
+            }
         }
     }
 
@@ -83,6 +87,7 @@ public class Main
     public static Cipher cipher;
     public static String cipherFunction;
     public static String input;
+    public static boolean invalidInpFlag = false;
 
     /**
      * Set up the cipher type based on the options found in args starting at position pos, and
@@ -149,6 +154,7 @@ public class Main
             default:
                 // TODO
                 System.out.println("please enter a valid command");
+                invalidInpFlag = true;
         }
         return pos;
     }
@@ -186,6 +192,7 @@ public class Main
             default:
                 // TODO
                 System.out.println("please enter a valid command");
+                invalidInpFlag = true;
         }
         return pos;
     }
@@ -259,6 +266,7 @@ public class Main
                 default:
                     // TODO
                     System.out.println("please enter a valid command");
+                    invalidInpFlag = true;
             }
         }
         return pos;
